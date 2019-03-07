@@ -1,15 +1,82 @@
 'use strict'
 
 const db = require('../server/db')
-const {User} = require('../server/db/models')
+const {User, Pacts, Habits} = require('../server/db/models')
 
 async function seed() {
   await db.sync({force: true})
   console.log('db synced!')
 
+  const habits = await Promise.all([
+    Habits.create({
+      habit: 'Go to the gym',
+      status: 'incomplete'
+    }),
+    Habits.create({
+      habit: 'Eat breakfast',
+      status: 'incomplete'
+    }),
+    Habits.create({
+      habit: 'Meditate',
+      status: 'incomplete'
+    }),
+    Habits.create({
+      habit: 'Smile',
+      status: 'incomplete'
+    }),
+    Habits.create({
+      habit: 'List gratitudes',
+      status: 'incomplete'
+    }),
+    Habits.create({
+      habit: 'Journal',
+      status: 'incomplete'
+    }),
+    Habits.create({
+      habit: 'Write one poem',
+      status: 'incomplete'
+    })
+  ])
+  const pacts = await Promise.all([
+    Pacts.create({
+      frequency: 'daily'
+    }),
+    Pacts.create({
+      frequency: 'monthly'
+    }),
+    Pacts.create({
+      frequency: 'daily'
+    }),
+    Pacts.create({
+      frequency: 'daily'
+    })
+  ])
+
   const users = await Promise.all([
-    User.create({email: 'cody@email.com', password: '123'}),
-    User.create({email: 'murphy@email.com', password: '123'})
+    User.create({
+      firstName: 'Cody',
+      lastName: 'Pupper',
+      isAdmin: false,
+      email: 'cody@email.com',
+      phoneNum: '2015752356',
+      password: '123'
+    }),
+    User.create({
+      firstName: 'Murphy',
+      lastName: 'Murphs',
+      isAdmin: false,
+      email: 'murphy@email.com',
+      phoneNum: '2015752356',
+      password: '123'
+    }),
+    User.create({
+      firstName: 'Steven',
+      lastName: 'Lee',
+      isAdmin: false,
+      email: 'Steve@email.com',
+      phoneNum: '2015752356',
+      password: '123'
+    })
   ])
 
   console.log(`seeded ${users.length} users`)
