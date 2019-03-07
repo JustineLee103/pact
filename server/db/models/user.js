@@ -36,7 +36,7 @@ const User = db.define('user', {
       return () => this.getDataValue('salt')
     }
   },
-  googleId: {
+  spotifyId: {
     type: Sequelize.STRING
   }
 })
