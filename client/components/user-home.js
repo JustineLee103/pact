@@ -1,18 +1,37 @@
-import React from 'react'
+import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
+import {getSpotifyData, me} from '../store/user'
 
 /**
  * COMPONENT
  */
-export const UserHome = props => {
-  const {email} = props
+export class UserHome extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {}
+  }
 
-  return (
-    <div>
-      <h3>Welcome, {email}</h3>
-    </div>
-  )
+  componentDidMount = () => {
+    this.props.me()
+    console.log(this.props.accessToken)
+    this.props.getSpotifyData(this.props.accessToken)
+    console.log('SPOTIFY DATA!!', this.props.spotifyData)
+  }
+
+  render() {
+    const {name} = this.props
+    console.log(
+      this.props.user,
+      'THIS IS THE ACCESS TOKEN',
+      this.props.accessToken
+    )
+    return (
+      <div>
+        <h3>Welcome, {name}</h3>
+      </div>
+    )
+  }
 }
 
 /**
@@ -20,11 +39,21 @@ export const UserHome = props => {
  */
 const mapState = state => {
   return {
-    email: state.user.email
+    user: state.user,
+    name: state.user.name,
+    accessToken: state.user.accessToken,
+    spotifyData: state.user.spotifyData
   }
 }
 
-export default connect(mapState)(UserHome)
+const mapDispatchToProps = dispatch => {
+  return {
+    getSpotifyData: token => dispatch(getSpotifyData(token)),
+    me: () => dispatch(me())
+  }
+}
+
+export default connect(mapState, mapDispatchToProps)(UserHome)
 
 /**
  * PROP TYPES

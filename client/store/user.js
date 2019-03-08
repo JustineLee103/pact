@@ -6,6 +6,7 @@ import history from '../history'
  */
 const GET_USER = 'GET_USER'
 const REMOVE_USER = 'REMOVE_USER'
+const GET_SPOTIFY_DATA = 'GET_SPOTIFY_DATA'
 
 /**
  * INITIAL STATE
@@ -17,6 +18,7 @@ const defaultUser = {}
  */
 const getUser = user => ({type: GET_USER, user})
 const removeUser = () => ({type: REMOVE_USER})
+const gotSpotifyData = userData => ({type: GET_SPOTIFY_DATA, userData})
 
 /**
  * THUNK CREATORS
@@ -56,6 +58,20 @@ export const logout = () => async dispatch => {
   }
 }
 
+// https://api.spotify.com/v1/artists
+
+export const getSpotifyData = token => {
+  console.log('HELLOOOOO FROM THUNK')
+  return async dispatch => {
+    let response = await axios.get('https://api.spotify.com/v1/me', {
+      headers: {Authorization: 'Bearer' + token}
+    })
+    let data = response.data
+    // dispatch(gotSpotifyData(data))
+    dispatch(gotSpotifyData(data))
+  }
+}
+
 /**
  * REDUCER
  */
@@ -65,6 +81,8 @@ export default function(state = defaultUser, action) {
       return action.user
     case REMOVE_USER:
       return defaultUser
+    case GET_SPOTIFY_DATA:
+      return {...state, spotifyData: action.userData}
     default:
       return state
   }
