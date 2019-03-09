@@ -1,5 +1,5 @@
 const User = require('./user')
-
+const MusicPreference = require('./music')
 /**
  * If we had any associations to make, this would be a great place to put them!
  * ex. if we had another model called BlogPost, we might say:
@@ -16,6 +16,10 @@ const User = require('./user')
 
 User.belongsToMany(User, {as: 'friend', through: 'connections'})
 
+User.belongsTo(MusicPreference)
+MusicPreference.hasOne(User)
+
 module.exports = {
-  User
+  User,
+  MusicPreference
 }
