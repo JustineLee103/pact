@@ -19,7 +19,7 @@ if (!process.env.SPOTIFY_CLIENT_ID || !process.env.SPOTIFY_CLIENT_SECRET) {
       const spotifyId = profile.id
 
       User.findOrCreate({
-        where: {spotifyId},
+        where: {spotifyId, accessToken},
         defaults: {
           name: profile.displayName,
           spotifyId: profile.id,

@@ -1,6 +1,4 @@
 const User = require('./user')
-const Pacts = require('./pacts')
-const Habits = require('./habits')
 
 /**
  * If we had any associations to make, this would be a great place to put them!
@@ -16,14 +14,8 @@ const Habits = require('./habits')
  * instead of: const User = require('../db/models/user')
  */
 
-Pacts.belongsTo(User)
-User.hasMany(Pacts)
-
-Habits.belongsTo(Pacts)
-Pacts.hasMany(Habits)
+User.belongsToMany(User, {as: 'friend', through: 'connections'})
 
 module.exports = {
-  User,
-  Pacts,
-  Habits
+  User
 }

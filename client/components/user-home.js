@@ -1,7 +1,8 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import {getSpotifyData, me} from '../store/user'
+import {me} from '../store/user'
+import {getSpotifyData} from '../store/spotify'
 
 /**
  * COMPONENT
@@ -29,6 +30,9 @@ export class UserHome extends Component {
     return (
       <div>
         <h3>Welcome, {name}</h3>
+        <img src={this.props.user.proPic} />
+        <p>Spotify ID: {this.props.user.spotifyId}</p>
+        <p>Phone Number: {this.props.user.phoneNum}</p>
       </div>
     )
   }
@@ -42,7 +46,7 @@ const mapState = state => {
     user: state.user,
     name: state.user.name,
     accessToken: state.user.accessToken,
-    spotifyData: state.user.spotifyData
+    spotifyData: state.combinedSpotify.userData
   }
 }
 
