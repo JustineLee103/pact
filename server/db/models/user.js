@@ -3,10 +3,7 @@ const Sequelize = require('sequelize')
 const db = require('../db')
 
 const User = db.define('user', {
-  firstName: {
-    type: Sequelize.STRING
-  },
-  lastName: {
+  name: {
     type: Sequelize.STRING
   },
   email: {
@@ -19,6 +16,9 @@ const User = db.define('user', {
   isAdmin: {
     type: Sequelize.BOOLEAN,
     defaultValue: false
+  },
+  accessToken: {
+    type: Sequelize.STRING
   },
   password: {
     type: Sequelize.STRING,
@@ -37,6 +37,12 @@ const User = db.define('user', {
     }
   },
   spotifyId: {
+    type: Sequelize.STRING
+  },
+  proPic: {
+    type: Sequelize.STRING
+  },
+  refreshToken: {
     type: Sequelize.STRING
   }
 })

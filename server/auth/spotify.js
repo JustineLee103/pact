@@ -15,11 +15,18 @@ if (!process.env.SPOTIFY_CLIENT_ID || !process.env.SPOTIFY_CLIENT_SECRET) {
 
   const strategy = new SpotifyStrategy(
     spotifyConfig,
-    (token, refreshToken, expires_in, profile, done) => {
+    (accessToken, refreshToken, expires_in, profile, done) => {
       const spotifyId = profile.id
 
       User.findOrCreate({
-        where: {spotifyId}
+        where: {spotifyId, accessToken},
+        defaults: {
+          name: profile.displayName,
+          spotifyId: profile.id,
+          accessToken: accessToken,
+          proPic: profile.photos[0],
+          refreshToken: refreshToken
+        }
       })
         .then(([user]) => done(null, user))
         .catch(done)
