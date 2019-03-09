@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {me} from '../store/user'
-import {getSpotifyData} from '../store/spotify'
+import {getSpotifyData, getSpotifyMusicData} from '../store/spotify'
 
 /**
  * COMPONENT
@@ -15,17 +15,19 @@ export class UserHome extends Component {
 
   componentDidMount = () => {
     this.props.me()
-    console.log(this.props.accessToken)
-    this.props.getSpotifyData(this.props.accessToken)
-    console.log('SPOTIFY DATA!!', this.props.spotifyData)
+    this.props.getSpotifyData()
+    this.props.getSpotifyMusicData()
+    console.log('componentDidMount SPOTIFY DATA!!', this.props.spotifyData)
+    console.log('componentDidMount MUSIC DATA:', this.props.musicData)
   }
 
   render() {
     const {name} = this.props
     console.log(
+      'RENDER: USER DATA!!!',
       this.props.user,
-      'THIS IS THE ACCESS TOKEN',
-      this.props.accessToken
+      'RENDER: MUSIC DATA',
+      this.props.musicData
     )
     return (
       <div>
@@ -46,13 +48,15 @@ const mapState = state => {
     user: state.user,
     name: state.user.name,
     accessToken: state.user.accessToken,
-    spotifyData: state.combinedSpotify.userData
+    spotifyData: state.combinedSpotify.userData,
+    musicData: state.combinedSpotify.musicData
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    getSpotifyData: token => dispatch(getSpotifyData(token)),
+    getSpotifyData: () => dispatch(getSpotifyData()),
+    getSpotifyMusicData: () => dispatch(getSpotifyMusicData()),
     me: () => dispatch(me())
   }
 }
