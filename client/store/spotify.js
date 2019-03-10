@@ -5,7 +5,7 @@ const GET_SPOTIFY_MUSIC_DATA = 'GET_SPOTIFY_MUSIC_DATA'
 
 const initialState = {
   userData: {},
-  musicData: {}
+  musicData: []
 }
 const gotSpotifyData = userData => ({type: GET_SPOTIFY_DATA, userData})
 const gotSpotifyMusicData = musicData => ({

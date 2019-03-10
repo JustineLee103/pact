@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {User} = require('../db/models')
+const {User, MusicPreference} = require('../db/models')
 const axios = require('axios')
 module.exports = router
 
@@ -40,12 +40,29 @@ router.get('/musicData', async (req, res, next) => {
         }
       }
     )
-    res.json(response.data)
+    let data = response.data
+    let genreArr = data.items
+      .map(artist => {
+        return artist.genres
+      })
+      .flat(1)
+    console.log(genreArr)
+    let singleMusicPref = await MusicPreference.create({
+      genres: Object.values(genreArr)
+    })
+    let user = await User.findById(req.user.id)
+    await user.update({musicpreferenceId: singleMusicPref.id})
+    res.json(genreArr)
   } catch (err) {
     next(err)
   }
 })
 
-// let data = response.data
-// // dispatch(gotSpotifyData(data))
-// dispatch(gotSpotifyData(data))
+// router.get('/:id', async (req, res, next) => {
+//   try {
+//     let userId = req.params.id
+//     let response = await User
+//   } catch (err){
+//     console.log(err)
+//   }
+// })

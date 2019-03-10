@@ -29,12 +29,19 @@ export class UserHome extends Component {
       'RENDER: MUSIC DATA',
       this.props.musicData
     )
+    const genres = this.props.musicData
+    console.log('ISIT AN ARRAY??', Array.isArray(genres))
     return (
       <div>
         <h3>Welcome, {name}</h3>
         <img src={this.props.user.proPic} />
         <p>Spotify ID: {this.props.user.spotifyId}</p>
         <p>Phone Number: {this.props.user.phoneNum}</p>
+
+        <h1>TOP GENRES</h1>
+        {genres.map((genre, index) => {
+          return <p key={index}>{genre}</p>
+        })}
       </div>
     )
   }
