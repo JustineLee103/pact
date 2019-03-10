@@ -58,11 +58,31 @@ router.get('/musicData', async (req, res, next) => {
   }
 })
 
-// router.get('/:id', async (req, res, next) => {
+router.get('/:id', async (req, res, next) => {
+  try {
+    let userId = req.params.id
+    let response = await User.findOne({
+      where: {
+        id: userId
+      },
+      include: [
+        {
+          model: MusicPreference
+        }
+      ]
+    })
+    res.json(response)
+  } catch (err) {
+    console.log(err)
+  }
+})
+
+// router.get('/musicpreference/:id', async(req, res, next) => {
 //   try {
-//     let userId = req.params.id
-//     let response = await User
-//   } catch (err){
+//     let musicId = req.params.id
+//     let response = await MusicPreference.findById(musicId)
+//     res.json(response)
+//   } catch (err) {
 //     console.log(err)
 //   }
 // })
