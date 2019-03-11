@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import {me} from '../store/user'
 import {getSpotifyData, getSpotifyMusicData} from '../store/spotify'
 import {Link, withRouter} from 'react-router-dom'
+import {Button, Heading, Section} from 'react-bulma-components/full'
 
 /**
  * COMPONENT
@@ -33,18 +34,32 @@ export class UserHome extends Component {
     const genres = this.props.musicData
     console.log('ISIT AN ARRAY??', Array.isArray(genres))
     return (
-      <div>
-        <h3>Welcome, {name}</h3>
+      <div className="box">
+        <Heading size={4}>Welcome, {name}</Heading>
         <img src={this.props.user.proPic} />
-        <p>Spotify ID: {this.props.user.spotifyId}</p>
-        <p>Phone Number: {this.props.user.phoneNum}</p>
+        <p>
+          <strong>Spotify ID:</strong> {this.props.user.spotifyId}
+        </p>
+        <p>
+          <strong>Phone Number:</strong> {this.props.user.phoneNum}
+        </p>
         <Link to={`/user/${this.props.user.id}`}>
-          <button>MY PROFILE</button>
+          <Button color="success" size="small" outlined>
+            MY PROFILE
+          </Button>
         </Link>
-        <h1>TOP GENRES</h1>
+        <p />
+        <br />
+        <p />
+        <Link to={`/user/matches/${this.props.user.id}`}>
+          <Button color="success" size="small" outlined>
+            MY MATCHES
+          </Button>
+        </Link>
+        {/* <h1>TOP GENRES</h1>
         {genres.map((genre, index) => {
           return <p key={index}>{genre}</p>
-        })}
+        })} */}
       </div>
     )
   }

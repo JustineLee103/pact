@@ -1,5 +1,10 @@
-body {
+body.is-vertical-center {
   font-family: sans-serif;
+  display: flex;
+  height: 100%;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
 }
 
 a {
@@ -10,7 +15,7 @@ label {
   display: block;
 }
 
-nav a {
+nav a.is-vertical-center {
   display: inline-block;
   margin: 1em;
 }
@@ -18,4 +23,24 @@ nav a {
 form div {
   margin: 1em;
   display: inline-block;
+}
+
+.column {
+  color: aqua;
+}
+
+Heading {
+  align-content: center;
+}
+
+#app {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.is-vertical-center {
+  display: flex;
+  align-items: center;
 }

@@ -39,6 +39,18 @@ export const getSpotifyMusicData = () => {
   }
 }
 
+export const getMusicDataOtherUser = id => {
+  return async dispatch => {
+    try {
+      let response = await axios.get(`/api/users/musicData/${id}`)
+      let data = response.data
+      dispatch(gotSpotifyMusicData(data))
+    } catch (err) {
+      console.log(err)
+    }
+  }
+}
+
 export default function(state = initialState, action) {
   switch (action.type) {
     case GET_SPOTIFY_DATA:

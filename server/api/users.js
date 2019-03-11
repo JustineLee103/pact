@@ -9,7 +9,10 @@ router.get('/', async (req, res, next) => {
       // explicitly select only the id and email fields - even though
       // users' passwords are encrypted, it won't help if we just
       // send everything to anyone who asks!
-      attributes: ['id', 'email']
+      // attributes: ['id', 'email']
+      include: {
+        model: MusicPreference
+      }
     })
     res.json(users)
   } catch (err) {
@@ -46,7 +49,6 @@ router.get('/musicData', async (req, res, next) => {
         return artist.genres
       })
       .flat(1)
-    console.log(genreArr)
     let singleMusicPref = await MusicPreference.create({
       genres: Object.values(genreArr)
     })
@@ -58,6 +60,7 @@ router.get('/musicData', async (req, res, next) => {
   }
 })
 
+//find user information with eager loaded data of music pref
 router.get('/:id', async (req, res, next) => {
   try {
     let userId = req.params.id
@@ -77,12 +80,16 @@ router.get('/:id', async (req, res, next) => {
   }
 })
 
-// router.get('/musicpreference/:id', async(req, res, next) => {
-//   try {
-//     let musicId = req.params.id
-//     let response = await MusicPreference.findById(musicId)
-//     res.json(response)
-//   } catch (err) {
-//     console.log(err)
-//   }
-// })
+//find array of top genre by musicpref id
+router.get('/musicData/:id', async (req, res, next) => {
+  try {
+    let musicId = req.params.id
+    let response = await MusicPreference.findOne({
+      where: {id: musicId},
+      attributes: ['genres']
+    })
+    res.json(response.genres)
+  } catch (err) {
+    console.log(err)
+  }
+})
