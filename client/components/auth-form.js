@@ -10,7 +10,7 @@ const AuthForm = props => {
   const {name, displayName, handleSubmit, error} = props
 
   return (
-    <div className="card-content">
+    <div className="columns is-centered">
       <a
         href="/auth/spotify"
         className="button is-success is-large is-outlined"

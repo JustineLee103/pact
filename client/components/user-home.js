@@ -34,9 +34,11 @@ export class UserHome extends Component {
     const genres = this.props.musicData
     console.log('ISIT AN ARRAY??', Array.isArray(genres))
     return (
-      <div className="box">
+      <div className="box is-centered">
         <Heading size={4}>Welcome, {name}</Heading>
+
         <img src={this.props.user.proPic} />
+
         <p>
           <strong>Spotify ID:</strong> {this.props.user.spotifyId}
         </p>

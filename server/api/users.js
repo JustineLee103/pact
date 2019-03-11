@@ -93,3 +93,17 @@ router.get('/musicData/:id', async (req, res, next) => {
     console.log(err)
   }
 })
+
+// router.get('/quotes', async (req, res, next) => {
+//   try {
+//     let response = await axios.get('https://andruxnet-random-famous-quotes.p.rapidapi.com/?count=10&cat=quotes', {
+//       headers: {
+//         'X-RapidAPI-Key':'12046bc646msh4885716f18587b8p142c96jsn1de510b98bd0'
+//       }
+//     })
+
+//     res.json(response.data)
+//   } catch (err) {
+//     next(err)
+//   }
+// })
