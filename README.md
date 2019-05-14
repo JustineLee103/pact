@@ -1,5 +1,5 @@
 # Muse
-- a social web applications where users can connect with other users based on their listening preferences on Spotify
+- a social web application, where users can connect with other users based on their listening preferences on Spotify
 
 ## Setup
 - fork and clone this repo
